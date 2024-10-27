@@ -1,8 +1,8 @@
-const Title = ({ hasBackBtn = false, children }) => {
+const Title = ({ backUrl, children }) => {
   return (
     <>
-      {hasBackBtn && <button>Back</button>}
-      <h1>{children}</h1>
+      {backUrl && <a href={backUrl} />}
+      <h1 style={{paddingRight: '44px'}}>{children}</h1>
     </>
   )
 
