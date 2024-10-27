@@ -3,7 +3,11 @@ import Button from "../../components/Button";
 
 const OrderStatusCard = ({status, name, orderDate, id}) => {
   return <Card
-    header={status + '\n' + name}
+    header={<>
+      <strong>{status}</strong>
+      <br />
+      {name}
+    </>}
     data={[
       {term: "주문일시", description: orderDate},
       {term: "주문번호", description: id}
