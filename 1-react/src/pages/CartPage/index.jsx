@@ -20,7 +20,8 @@ const CartPage = () => (
         </Button>
       }
     >
-      <ProductItem product={fakeProduct} />
+      <ProductItem product={fakeProduct} onClick={() => {
+        console.log("주문하기 클릭")}}/>
     </Page>
   </div>
 );
