@@ -10,9 +10,7 @@ const App = () => (
   </>
 );
 
-// export default App;
-
-import React from "react";
+export default App;
 
 class Foo extends React.Component {
   render(){
@@ -45,4 +43,4 @@ class MyComponent extends React.Component {
 
 }
 
-export default MyComponent
+// export default MyComponent
