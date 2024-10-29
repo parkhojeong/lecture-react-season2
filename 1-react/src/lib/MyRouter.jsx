@@ -34,13 +34,17 @@ export class Router extends React.Component {
 }
 
 export const Routes = () => (
+      <>
+        <Route path={"/cart"} element={<CartPage />}/>
+        <Route path={"/order"} element={<OrderPage />}/>
+        <Route path={"/"} element={<ProductPage />}/>
+      </>
+);
+
+export const Route = ({path: to, element}) => (
   <routerContext.Consumer>
     {({ path }) => (
-      <>
-        {path === "/cart" && <CartPage />}
-        {path === "/order" && <OrderPage />}
-        {!["/cart", "/order"].includes(path) && <ProductPage />}
-      </>
+        to === path && element
     )}
   </routerContext.Consumer>
 );
