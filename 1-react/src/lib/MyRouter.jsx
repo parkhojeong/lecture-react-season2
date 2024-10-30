@@ -10,19 +10,23 @@ export class Router extends React.Component {
       path: window.location.pathname,
     };
     this.handleChangePath = this.handleChangePath.bind(this);
+    this.handleOnpopstate = this.handleOnpopstate.bind(this);
   }
 
   handleChangePath(path) {
     this.setState({ path });
-    window.history.pushState({page:path }, "", path);
+    window.history.pushState({path }, "", path);
   }
 
   componentDidMount() {
     addEventListener('popstate', this.handleOnpopstate)
+    console.log("[state] path: ", this.state.path)
+    window.history.replaceState({path: this.state.path}, "")
   }
 
   handleOnpopstate(event) {
-      this.setState({path: event.state.page})
+    console.log("handleOnpopstate", event)
+    this.setState({path: event.state.path})
   }
 
   componentWillUnmount() {
