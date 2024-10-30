@@ -104,9 +104,11 @@ export const withRouter = (WrappedComponent) => {
           if (path !== nextPath) changePath(nextPath);
         };
 
+        const match = comparedPath => path === comparedPath;
+
         const enhancedProps = {
           navigate,
-          path
+          match
         };
         return <WrappedComponent {...props} {...enhancedProps} />;
       }}
