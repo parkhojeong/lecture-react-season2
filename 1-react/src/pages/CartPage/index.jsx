@@ -5,7 +5,6 @@ import ProductItem from "../../components/ProductItem";
 import Title from "../../components/Title";
 import OrderForm from "./OrderForm";
 import PaymentButton from "./PaymentButton";
-import {routerContext} from '../../lib/MyRouter';
 
 
 class CartPage extends React.Component {
@@ -35,21 +34,15 @@ class CartPage extends React.Component {
   render() {
     const { product } = this.state;
     return (
-      <routerContext.Consumer>
-        {({changePath}) => {
-          return (
-            <div className="CartPage">
-              <Page
-                header={<Title backUrl="/">장바구니</Title>}
-                footer={<PaymentButton changePath={changePath}/>}
-              >
-                {product && <ProductItem product={product}/>}
-                <OrderForm onSubmit={this.handleSubmit}/>
-              </Page>
-            </div>
-          )
-        }}
-      </routerContext.Consumer>
+      <div className="CartPage">
+        <Page
+          header={<Title backUrl="/">장바구니</Title>}
+          footer={<PaymentButton />}
+        >
+          {product && <ProductItem product={product}/>}
+          <OrderForm onSubmit={this.handleSubmit}/>
+        </Page>
+      </div>
     );
   }
 }
