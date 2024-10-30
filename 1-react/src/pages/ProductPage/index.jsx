@@ -4,6 +4,7 @@ import Page from "../../components/Page";
 import Title from "../../components/Title";
 import Navbar from "../../components/Navbar";
 import OrderableProductItem from "./OrderableProductItem";
+import {routerContext} from '../../lib/MyRouter';
 
 class ProductPage extends React.Component {
   constructor(props) {
@@ -28,17 +29,24 @@ class ProductPage extends React.Component {
 
   render() {
     return (
-      <div className="ProductPage">
-        <Page header={<Title>메뉴목록</Title>} footer={<Navbar />}>
-          <ul>
-            {this.state.productList.map((product) => (
-              <li key={product.id}>
-                <OrderableProductItem product={product} />
-              </li>
-            ))}
-          </ul>
-        </Page>
-      </div>
+      <routerContext.Consumer>
+        {({changePath}) => {
+          return (
+            <div className="ProductPage">
+              <Page header={<Title>메뉴목록</Title>} footer={<Navbar/>}>
+                <ul>
+                  {this.state.productList.map((product) => (
+                    <li key={product.id}>
+                      <OrderableProductItem product={product} changePath={changePath}/>
+                    </li>
+                  ))}
+                </ul>
+              </Page>
+            </div>
+          )
+        }}
+
+      </routerContext.Consumer>
     );
   }
 }
