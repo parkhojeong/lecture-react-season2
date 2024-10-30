@@ -13,7 +13,7 @@ const App = () => (
   </MyRouter.Router>
 );
 
-// export default App;
+export default App;
 
 import React from "react";
 import {getComponentName} from "./lib/utils";
@@ -55,9 +55,9 @@ const withLogging = WrappedComponent => {
 const EnhancedHeader = withLogging(Header)
 const EnhancedButton = withLogging(Button)
 
-export default () => (
-  <>
-    <EnhancedHeader />
-    <EnhancedButton />
-  </>
-)
+// export default () => (
+//   <>
+//     <EnhancedHeader />
+//     <EnhancedButton />
+//   </>
+// )
