@@ -106,6 +106,7 @@ export const withRouter = (WrappedComponent) => {
 
         const enhancedProps = {
           navigate,
+          path
         };
         return <WrappedComponent {...props} {...enhancedProps} />;
       }}
