@@ -40,22 +40,23 @@ class CartPage extends React.Component {
 
   async handleSubmit(values) {
     console.log(values);
-    const { startLoading, finishLoading, openDialog, navigate } = this.props;
+    const { startLoading, openDialog, finishLoading } = this.props;
 
     startLoading('결제 중..');
     try{
       await OrderApi.createOrder(values)
-      console.log("ddd")
-      openDialog(
-        <PaymentSuccessDialog
-          onClickYes={() => {navigate("/order")}}
-          onClickNo={() => {navigate("/")}}
-        />
-      )
+
     }catch (e) {
       openDialog(<ErrorDialog />)
+      return;
     }
+
+    finishLoading();
+    openDialog(
+      <PaymentSuccessDialog />
+    )
   }
+
 
   render() {
     const { product } = this.state;

@@ -1,15 +1,16 @@
 import * as MyLayout from "../lib/MyLayout";
+import * as MyRouter from "../lib/MyRouter";
 import Dialog from "./Dialog";
 import Button from "./Button";
 
-const PaymentSuccessDialog = ({ closeDialog, onClickYes, onClickNo }) => {
+const PaymentSuccessDialog = ({ closeDialog, navigate}) => {
   const handleClickYes = () => {
     closeDialog()
-    onClickYes()
+    navigate("/order")
   }
   const handleClickNo = () => {
     closeDialog()
-    onClickNo()
+    navigate("/")
   }
 
   return <Dialog
@@ -25,4 +26,4 @@ const PaymentSuccessDialog = ({ closeDialog, onClickYes, onClickNo }) => {
   </Dialog>
 }
 
-export default MyLayout.withLayout(PaymentSuccessDialog);
+export default MyRouter.withRouter(MyLayout.withLayout(PaymentSuccessDialog));
