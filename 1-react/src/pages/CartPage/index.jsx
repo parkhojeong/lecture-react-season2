@@ -1,5 +1,6 @@
 import React from "react";
 import ProductApi from "shared/api/ProductApi";
+import OrderApi from "shared/api/OrderApi";
 import Page from "../../components/Page";
 import ProductItem from "../../components/ProductItem";
 import Title from "../../components/Title";
@@ -8,6 +9,7 @@ import * as MyRouter from "../../lib/MyRouter";
 import * as MyLayout from "../../lib/MyLayout";
 import OrderForm from "./OrderForm";
 import PaymentButton from "./PaymentButton";
+import PaymentSuccessDialog from "../../components/PaymentSuccessDialog";
 
 class CartPage extends React.Component {
   constructor(props) {
@@ -35,12 +37,24 @@ class CartPage extends React.Component {
     finishLoading();
   }
 
-  handleSubmit(values) {
+
+  async handleSubmit(values) {
     console.log(values);
+    const { startLoading, finishLoading, openDialog, navigate } = this.props;
 
-    // TODO: 결제 성공 후
-
-    this.props.navigate("/order");
+    startLoading('결제 중..');
+    try{
+      await OrderApi.createOrder(values)
+      console.log("ddd")
+      openDialog(
+        <PaymentSuccessDialog
+          onClickYes={() => {navigate("/order")}}
+          onClickNo={() => {navigate("/")}}
+        />
+      )
+    }catch (e) {
+      openDialog(<ErrorDialog />)
+    }
   }
 
   render() {
