@@ -7,6 +7,7 @@ import * as MyRouter from "../../lib/MyRouter";
 import * as MyLayout from "../../lib/MyLayout";
 import OrderForm from "./OrderForm";
 import PaymentButton from "./PaymentButton";
+import ErrorDialog from "1-react/src/components/ErrorDialog";
 
 class CartPage extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class CartPage extends React.Component {
   }
 
   async fetch() {
-    const { startLoading, finishLoading } = this.props;
+    const { startLoading, finishLoading, openDialog } = this.props;
     const { productId } = this.props.params();
     if (!productId) return;
 
@@ -28,10 +29,12 @@ class CartPage extends React.Component {
     try {
       const product = await ProductApi.fetchProduct(productId);
       this.setState({ product });
-      finishLoading();
+      throw "fake error";
     } catch (e) {
+      openDialog(<ErrorDialog />)
       console.error(e);
     }
+    finishLoading();
   }
 
   handleSubmit(values) {
