@@ -1,6 +1,7 @@
 import React from "react";
 import Backdrop from "../components/Backdrop";
 import { getComponentName } from "./utils";
+import Dialog from "1-react/src/components/Dialog";
 
 export const layoutContext = React.createContext({});
 layoutContext.displayName = "LayoutContext";
@@ -38,10 +39,15 @@ export const withLayout = (WrappedComponent) => {
         const openDialog = setDialog;
         const closeDialog = () => setDialog(null);
 
+        const startLoading = (message) => openDialog(<Dialog>{message}</Dialog>)
+        const finishLoading = closeDialog;
+
         const enhancedProps = {
           dialog,
           openDialog,
           closeDialog,
+          startLoading,
+          finishLoading
         };
         return <WrappedComponent {...props} {...enhancedProps} />;
       }}
