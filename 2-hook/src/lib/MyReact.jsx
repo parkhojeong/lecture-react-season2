@@ -40,7 +40,7 @@ const MyReact = (function MyReact() {
     };
   }
 
-  function useEffect(effect, nextDep) {
+  function useEffect(effect, nextDeps) {
 
     function runDeferedEffect() {
       const ENOUGH_TIME_TO_RENDER = 1
@@ -49,18 +49,19 @@ const MyReact = (function MyReact() {
 
     if(!isInitialized[cursor]){
       isInitialized[cursor] = true;
-      deps[cursor] = nextDep;
+      deps[cursor] = nextDeps;
       cursor += 1;
       runDeferedEffect();
       return;
     }
 
-    if(deps[cursor] === nextDep) {
+    const depsSame = deps[cursor].every((prevDep, index) => prevDep === nextDeps[index]);
+    if(depsSame) {
       cursor += 1;
       return;
     }
 
-    deps[cursor] = nextDep;
+    deps[cursor] = nextDeps;
     cursor += 1;
     runDeferedEffect();
   }

@@ -20,11 +20,11 @@ const Counter = () => {
   MyReact.useEffect(() => {
     document.title = `count: ${count}` // 동기적인 코드라 렌더링 지연, 최상위 스코프에서 side effect 발생(예측하기 어려워짐)
     console.log("effect1");
-  }, count)
+  }, [count, name])
 
   MyReact.useEffect(() => {
     console.log("effect2");
-  }, name)
+  }, [name])
 
   console.log("Counter rendered");
 
