@@ -1,9 +1,11 @@
-const Button = ({ styleType, block, ...rest }) => {
+import React from "react";
+
+const Button = ({ styleType, block, ...rest }, ref) => {
   let className = "Button";
   if (styleType) className += ` ${styleType}`;
   if (block) className += " block";
 
-  return <button {...rest} className={className} />;
+  return <button {...rest} ref={ref} className={className} />;
 };
 
-export default Button;
+export default React.forwardRef(Button);
