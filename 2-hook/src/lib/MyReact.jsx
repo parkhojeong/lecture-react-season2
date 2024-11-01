@@ -2,7 +2,7 @@ import React from "react";
 
 const MyReact = (function MyReact() {
   const memorizedStates = [];
-  let dep;
+  let deps = [];
   const isInitialized = [];
   let cursor = 0;
 
@@ -49,17 +49,27 @@ const MyReact = (function MyReact() {
 
     if(!isInitialized[cursor]){
       isInitialized[cursor] = true;
-      dep = nextDep;
+      deps[cursor] = nextDep;
+      cursor += 1;
       runDeferedEffect();
       return;
     }
 
-    if(dep === nextDep) return;
-    dep = nextDep;
+    if(deps[cursor] === nextDep) {
+      cursor += 1;
+      return;
+    }
+
+    deps[cursor] = nextDep;
+    cursor += 1;
     runDeferedEffect();
   }
 
-  return { useState, useEffect };
+  function resetCursor() {
+    cursor = 0
+  }
+
+  return { useState, useEffect, resetCursor };
 })();
 
 export default MyReact;
