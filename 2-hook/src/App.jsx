@@ -1,16 +1,20 @@
 import MyReact from "./lib/MyReact";
 
 function NameField() {
-  const [firstName, setFirstName] = MyReact.useState('user1');
-  const [lastName, setLastName] = MyReact.useState('kim');
+  const [firstName, setFirstName] = MyReact.useState(0, 'user1');
+  const [lastName, setLastName] = MyReact.useState(1, 'kim');
 
-  function handleChange(e) {
+  function handleChangeFirstName(e) {
     setFirstName(e.target.value);
   }
 
+  function handleChangeLastName(e) {
+    setLastName(e.target.value);
+  }
+
   return <>
-    <input value={firstName} onChange={handleChange}/>
-    <input value={lastName} onChange={handleChange}/>
+    <input value={firstName} onChange={handleChangeFirstName}/>
+    <input value={lastName} onChange={handleChangeLastName}/>
   </>
 }
 

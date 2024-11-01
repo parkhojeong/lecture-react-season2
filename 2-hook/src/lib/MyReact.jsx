@@ -1,25 +1,27 @@
 import React from "react";
 
 const MyReact = (function MyReact(){
-  let memorizedState;
-  let isInitialized = false;
+  let memorizedStates = [];
+  let isInitialized = [];
 
-  function useState(initialValue = "") {
+  function useState(cursor, initialValue = "") {
     const {forceUpdate} = useForceUpdate();
-    if(!isInitialized){
-      memorizedState = initialValue;
-      isInitialized = true;
+    if(!isInitialized[cursor]){
+      memorizedStates[cursor] = initialValue;
+      isInitialized[cursor] = true;
     }
 
-    const setState = value => {
-      if(memorizedState === value) return;
-      memorizedState = value;
+    const state = memorizedStates[cursor];
+
+    const setState = nextState => {
+      if(state === nextState) return;
+      memorizedStates[cursor] = nextState;
       forceUpdate();
     }
 
-    console.log(initialValue, memorizedState, isInitialized)
+    console.log(initialValue, state, isInitialized[state])
 
-    return [memorizedState, setState]
+    return [state, setState]
   }
 
   function useForceUpdate() {
