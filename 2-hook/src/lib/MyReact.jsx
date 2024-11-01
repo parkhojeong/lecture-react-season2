@@ -2,8 +2,10 @@ import React from "react";
 
 const MyReact = (function MyReact() {
   const memorizedStates = [];
+  let dep;
   const isInitialized = [];
   let cursor = 0;
+
 
   function useState(initialValue = "") {
     const { forceUpdate } = useForceUpdate();
@@ -38,12 +40,22 @@ const MyReact = (function MyReact() {
     };
   }
 
-  function useEffect(effect) {
+  function useEffect(effect, nextDep) {
+
     function runDeferedEffect() {
       const ENOUGH_TIME_TO_RENDER = 1
       setTimeout(effect, ENOUGH_TIME_TO_RENDER)
     }
 
+    if(!isInitialized[cursor]){
+      isInitialized[cursor] = true;
+      dep = nextDep;
+      runDeferedEffect();
+      return;
+    }
+
+    if(dep === nextDep) return;
+    dep = nextDep;
     runDeferedEffect();
   }
 
