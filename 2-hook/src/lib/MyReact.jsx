@@ -38,7 +38,16 @@ const MyReact = (function MyReact() {
     };
   }
 
-  return { useState };
+  function useEffect(effect) {
+    function runDeferedEffect() {
+      const ENOUGH_TIME_TO_RENDER = 1
+      setTimeout(effect, ENOUGH_TIME_TO_RENDER)
+    }
+
+    runDeferedEffect();
+  }
+
+  return { useState, useEffect };
 })();
 
 export default MyReact;
