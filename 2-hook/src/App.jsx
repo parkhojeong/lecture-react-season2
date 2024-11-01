@@ -20,6 +20,11 @@ const Counter = () => {
   MyReact.useEffect(() => {
     document.title = `count: ${count}` // 동기적인 코드라 렌더링 지연, 최상위 스코프에서 side effect 발생(예측하기 어려워짐)
     console.log("effect1");
+
+    return function cleanup() {
+      document.title = ""
+      console.log("effect1 cleanup")
+    };
   }, [count, name])
 
   MyReact.useEffect(() => {
@@ -39,4 +44,17 @@ const Counter = () => {
   </>
 }
 
-export default Counter
+export default () => {
+  const [mounted, setMounted] = React.useState(false);
+
+  function handleToggle() {
+    const nextMounted = !mounted;
+    if(!nextMounted) MyReact.cleanupEffects();
+    setMounted(nextMounted);
+  }
+
+  return <>
+    <button onClick={handleToggle}>toggle component</button>
+    {mounted && <Counter />}
+  </>
+}
