@@ -1,23 +1,25 @@
 import React from "react";
 
 const MyReact = (function MyReact(){
-  let firstname;
+  let memorizedState;
   let isInitialized = false;
 
-  function useName(initialValue = "") {
+  function useState(initialValue = "") {
     const {forceUpdate} = useForceUpdate();
     if(!isInitialized){
-      firstname = initialValue;
+      memorizedState = initialValue;
       isInitialized = true;
     }
 
-    const setFirstname = value => {
-      if(firstname === value) return;
-      firstname = value;
+    const setState = value => {
+      if(memorizedState === value) return;
+      memorizedState = value;
       forceUpdate();
     }
 
-    return [firstname, setFirstname]
+    console.log(initialValue, memorizedState, isInitialized)
+
+    return [memorizedState, setState]
   }
 
   function useForceUpdate() {
@@ -26,7 +28,7 @@ const MyReact = (function MyReact(){
     return {forceUpdate}
   }
 
-  return {useName}
+  return {useState: useState}
 })()
 
 
