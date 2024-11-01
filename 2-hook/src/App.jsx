@@ -26,6 +26,11 @@ const Counter = () => {
     console.log("effect2");
   }, [name])
 
+  MyReact.useEffect(() => {
+    setName(localStorage.getItem("name") || "")
+    console.log("effect3")
+  }, [])
+
   console.log("Counter rendered");
 
   return <>
